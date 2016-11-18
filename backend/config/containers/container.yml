@@ -1,0 +1,12 @@
+imports:
+    - ../../vendor/opine/api/config/containers/container.yml
+
+services:
+    website:
+        class: WebsiteController
+    admin:
+        class: AdminController
+        arguments:
+            - "@userService"
+    ecommerce:
+        class: EcommerceController

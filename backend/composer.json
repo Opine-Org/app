@@ -1,0 +1,13 @@
+{
+    "name": "project",
+    "minimum-stability": "dev",
+    "require": {
+        "opine/api": "1.0.11"
+    },
+    "autoload": {
+        "classmap": [
+            "controllers",
+            "models"
+        ]
+    }
+}

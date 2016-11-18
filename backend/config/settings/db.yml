@@ -1,0 +1,4 @@
+settings:
+    dsn: pgsql:dbname=test_db
+    username: postgres
+    password: postgres
