@@ -3,7 +3,7 @@
 # determine this files directory
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-ENV="local"
+ENV="default"
 if [ $# -eq 2 ]
   then
     ENV=$2
