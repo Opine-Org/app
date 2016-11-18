@@ -14,7 +14,7 @@ git clone git@github.com:Opine-Org/deployer.git
 
 # Initial Configuration
 ```sh
-cd ~/Project/deployer
+cd ~/Project/opine/deployer
 sudo ./deploy.sh init-local
 sudo ./deploy.sh id-make
 sudo ./deploy.sh htpasswd <PASSWD>
@@ -22,13 +22,13 @@ sudo ./deploy.sh htpasswd <PASSWD>
 
 # Compose and Build Backend
 ```sh
-~/Projects/opine/app/backend/composer/run.sh build
-~/Projects/opine/app/backend/builder/run.sh
+sudo ~/Projects/opine/app/backend/composer/run.sh build
+sudo ~/Projects/opine/app/backend/builder/run.sh
 ```
 
 # Compose and Build Frontend
 ```sh
-~/Projects/opine/app/frontend/builder/run.sh
+sudo ~/Projects/opine/app/frontend/builder/run.sh
 ```
 
 # Running
