@@ -5,8 +5,16 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 ENV="local"
 if [ $# -eq 1 ]
-  then
+then
     ENV=$1
+fi
+
+PERSISTENT_DIR="$DIR/../persistent"
+if [ $ENV != "local" ]
+then
+    docker pull opinephp/application
+    mkdir -p /app/persistent
+    PERSISTENT_DIR="/app/persistent"
 fi
 
 docker run \
@@ -14,6 +22,6 @@ docker run \
     -p 80:80 \
     -p 443:443 \
     -v "$DIR":/app \
-    -v "$DIR/../persistent":/media/persistent \
+    -v "$PERSISTENT_DIR":/media/persistent \
     -e OPINE_ENV="$ENV" \
     -d opinephp/application
