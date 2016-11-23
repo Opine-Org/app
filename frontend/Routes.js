@@ -1,6 +1,6 @@
 import React from 'react';
 
-import RouteHelper from './libs/RouteHelper.js';
+import { helper } from 'UniversalRoute';
 
 import B from './components/B.js';
 import A from './components/A.js';
@@ -21,4 +21,4 @@ const Routes = {
     '/admin/product/:id':   B
 };
 
-export default RouteHelper.prepare(Routes);
+export default helper.prepare(Routes);

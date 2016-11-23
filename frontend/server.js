@@ -9,7 +9,21 @@ import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import configureStore from './store/configureStore.js';
 
-import Router from './components/Router.js';
+import { component } from 'UniversalRoute';
+
+// read routes
+import Routes from './Routes.js';
+
+// load up a react 404 component
+import Unknown from './components/Unknown.js';
+
+// get all actions
+import * as routeActions from './actions/route.js';
+import * as adminActions from './actions/admin.js';
+const actions = Object.assign({}, routeActions, adminActions);
+
+// initialize the router
+const Router = component(null, Routes, actions, Unknown);
 
 const app = Express();
 const port = 81;
