@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import configureStore from './store/configureStore.js';
 
-import { component } from 'UniversalRoute';
+import { component } from 'universal-route';
 
 // read routes
 import Routes from './Routes.js';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { helper } from 'UniversalRoute';
+import { helper } from 'universal-route';
 
 import B from './components/B.js';
 import A from './components/A.js';

@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
-import { component } from 'UniversalRoute';
+import { component, action } from 'universal-route';
 
 // read routes
 import Routes from './Routes.js';
@@ -11,9 +11,13 @@ import Routes from './Routes.js';
 import Unknown from './components/Unknown.js';
 
 // get all actions
-import * as routeActions from './actions/route.js';
 import * as adminActions from './actions/admin.js';
-const actions = Object.assign({}, routeActions, adminActions);
+
+// combine all actions
+const actions = Object.assign({}, adminActions, action);
+
+console.log(action);
+console.log(actions);
 
 // put the history manager in global namespace
 import createHistory from 'history/createBrowserHistory';
