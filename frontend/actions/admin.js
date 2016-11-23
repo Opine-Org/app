@@ -1,12 +1,6 @@
 import { submitAdminRegisterAPI } from './../api/api.js';
 
-export const CHANGE_HISTORY = 'CHANGE_HISTORY';
 export const SET_ADMIN_FORM_XHR = 'SET_ADMIN_FORM_XHR';
-
-export const changeHistory = (response) => ({
-    type: CHANGE_HISTORY,
-    payload: response
-});
 
 export const setAdminFormXHR = (data) => ({
     type: SET_ADMIN_FORM_XHR,

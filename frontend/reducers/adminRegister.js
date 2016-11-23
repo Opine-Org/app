@@ -1,4 +1,4 @@
-import { SET_ADMIN_FORM_XHR } from '../actions/index.js';
+import { SET_ADMIN_FORM_XHR } from '../actions/admin.js';
 
 const adminRegister = (state = {
     isFetching: false,

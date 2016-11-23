@@ -10,23 +10,28 @@ if [ -d /app ]; then
     chmod -R ug+rw /app/*
 fi
 
-# install any new dependencies
-runuser -s /bin/bash www-data -c "npm install"
-
 if [ $1 = "webpack.dev.client.js" ]
 then
+    # install any new dependencies
+    runuser -s /bin/bash www-data -c "npm install"
 
     # run webpack in watch mode
     runuser -s /bin/bash www-data -c "./node_modules/.bin/webpack --progress --config $1 --display-error-details --colors --watch"
 
 elif [ $1 = "webpack.prod.server.js" ]
 then
+    # install any new dependencies
+    runuser -s /bin/bash www-data -c "npm install --silent"
+
     # build bundle once
-    runuser -s /bin/bash www-data -c "./node_modules/.bin/webpack -p --config $1"
+    runuser -s /bin/bash www-data -c "./node_modules/.bin/webpack --no-info -p --config $1"
 
 else
+    # install any new dependencies
+    runuser -s /bin/bash www-data -c "npm install --silent"
+
     # build bundle once
-    runuser -s /bin/bash www-data -c "./node_modules/.bin/webpack -p --config $1"
+    runuser -s /bin/bash www-data -c "./node_modules/.bin/webpack --no-info -p --config $1"
 
     # ensure that id file exists
     touch ./static/bundle-prod-id.txt

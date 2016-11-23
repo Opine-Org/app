@@ -1,7 +1,8 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as Actions from './../actions/index.js';
+import * as routeActions from './../actions/route.js';
+import * as adminActions from './../actions/admin.js';
 
 import RouteHelper from './../libs/RouteHelper.js';
 import Routes from './../Routes.js';
@@ -10,7 +11,7 @@ import reqwest from 'reqwest';
 import nprogress from 'nprogress';
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators(Actions, dispatch);
+    return bindActionCreators(Object.assign({}, routeActions, adminActions), dispatch);
 }
 
 const mapStateToProps = function (state) {

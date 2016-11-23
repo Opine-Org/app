@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import adminRegister from './adminRegister.js';
 
-import { CHANGE_HISTORY } from './../actions/index.js';
+import { CHANGE_HISTORY } from './../actions/route.js';
 
 const globalReducer = (currentState = initialState, action) => {
     switch (action.type) {
