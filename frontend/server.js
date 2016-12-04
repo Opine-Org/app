@@ -8,22 +8,16 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import configureStore from './store/configureStore.js';
-
-import { component } from 'universal-route';
+import { RouterComponent } from 'universal-route';
 
 // read routes
 import Routes from './Routes.js';
 
 // load up a react 404 component
-import Unknown from './components/Unknown.js';
-
-// get all actions
-import * as routeActions from './actions/route.js';
-import * as adminActions from './actions/admin.js';
-const actions = Object.assign({}, routeActions, adminActions);
+import PageNotFound from './components/PageNotFound.js';
 
 // initialize the router
-const Router = component(null, Routes, actions, Unknown);
+const Router = RouterComponent(null, Routes, {}, PageNotFound);
 
 const app = Express();
 const port = 81;
@@ -36,6 +30,8 @@ function handleRender(req, res) {
     // create a new redux store instance
     const store = configureStore(preloadedState)
 
+    console.log(req.headers['x-location']);
+
     // render the component to a string
     const html = renderToString(
         <Provider store={store}>
@@ -47,7 +43,7 @@ function handleRender(req, res) {
     const finalState = store.getState();
 
     // Send the rendered page back to the client
-    res.send(renderFullPage(html, finalState));
+    res.send(renderFullPage(html, finalState, req.headers['x-location']));
 }
 
 // parse application/json
@@ -65,7 +61,7 @@ if (opineEnv != 'local') {
     cssFile = '/static/bundle-prod-' + staticId.trim() + '.css';
 }
 
-function renderFullPage(html, preloadedState) {
+function renderFullPage(html, preloadedState, location) {
   return `
     <!doctype html>
     <html>
@@ -79,10 +75,9 @@ function renderFullPage(html, preloadedState) {
             <div id="app">${html}</div>
             <script>
                 window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\x3c')}
+                window.xLocation = '${location}';
             </script>
             <script src="${jsFile}"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
         </body>
     </html>
     `

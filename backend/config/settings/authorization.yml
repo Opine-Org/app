@@ -1,7 +1,8 @@
 settings:
-    cms:
-        - SUPERADMIN
-        - ADMIN:
-    test:
-        - SOME_ROLE:
-            - controller@qualifier
+    activities:
+        ADMIN_PRODUCTS:
+            - SUPERADMIN
+            - ADMIN:
+                - controller@qualifier
+    redirects:
+        ADMIN_PRODUCTS: /admin

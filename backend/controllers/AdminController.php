@@ -33,12 +33,16 @@ class AdminController {
         return '{}';
     }
 
-    public function login ()
+    public function login (array $input) : string
     {
-        return '{}';
+        http_response_code(400);
+        return json_encode([
+            'status' => 'error',
+            'error' => 'You Suck'
+        ]);
     }
 
-    public function register (array $input)
+    public function register (array $input) : string
     {
         $userId = $this->userService->addUser($input['first_name'], $input['last_name'], $input['email'], $input['password']);
         if ($userId === false) {

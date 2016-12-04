@@ -15,6 +15,8 @@ then
     docker pull opinephp/application
     mkdir -p /app/persistent
     PERSISTENT_DIR="/app/persistent"
+else
+    mkdir -p /app/persistent/log
 fi
 
 docker run \

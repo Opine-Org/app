@@ -2,26 +2,26 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
-import { component, changeHistory, CHANGE_HISTORY } from 'universal-route';
+import { RouterComponent, actions } from 'universal-route';
 
 // read routes
 import Routes from './Routes.js';
 
 // load up a react 404 component
-import Unknown from './components/Unknown.js';
+import PageNotFound from './components/PageNotFound.js';
 
 // get all actions
 import * as adminActions from './actions/admin.js';
 
 // combine all actions
-const actions = Object.assign({}, adminActions, {changeHistory: changeHistory, CHANGE_HISTORY: CHANGE_HISTORY});
+const reduxActions = Object.assign({}, adminActions, actions);
 
 // put the history manager in global namespace
 import createHistory from 'history/createBrowserHistory';
 window.appHistory = createHistory();
 
 // initialize the router
-const Router = component(window.appHistory, Routes, actions, Unknown);
+const Router = RouterComponent(window.appHistory, Routes, reduxActions, PageNotFound);
 
 // preload the store
 const preloadedState = window.__PRELOADED_STATE__;
@@ -34,7 +34,7 @@ require('./styles/index.css');
 // render the application
 render(
     <Provider store={store}>
-        <Router location={window.location.pathname} />
+        <Router location={window.xLocation || window.location.pathname} />
     </Provider>,
     rootElement
 );

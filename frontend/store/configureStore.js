@@ -3,10 +3,10 @@ import thunkMiddleware from 'redux-thunk';
 import { reducer } from 'universal-route';
 
 // include each reducer
-import adminRegister from './../reducers/adminRegister.js';
+import adminForm from './../reducers/adminForm.js';
 
 const rootReducer = reducer({
-    adminRegister
+    adminForm
 });
 
 const configureStore = (preloadedState) => {
