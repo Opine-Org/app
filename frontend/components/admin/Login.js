@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Checkbox, Form, Segment, Grid, Header, Message } from 'semantic-ui-react';
 
-const FormExampleForm = (props) => (
+const Login = (props) => (
     <Segment vertical>
         <Grid centered columns={2}>
             <Grid.Column>
@@ -41,4 +41,4 @@ const FormExampleForm = (props) => (
     </Segment>
 );
 
-export default FormExampleForm;
+export default Login;
