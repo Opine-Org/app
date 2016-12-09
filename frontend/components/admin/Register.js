@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AdminRegister = React.createClass({
+const Register = React.createClass({
     handleFormSubmit: function (e) {
         e.preventDefault();
 
@@ -73,4 +73,11 @@ const AdminRegister = React.createClass({
     }
 });
 
-export default AdminRegister;
+Register.propTypes = {
+    submitAdminLogin: React.PropTypes.func.isRequired,
+    error: React.PropTypes.object,
+    notice: React.PropTypes.object,
+    isFetching: React.PropTypes.bool
+};
+
+export default Register;

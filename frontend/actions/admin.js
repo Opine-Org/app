@@ -52,8 +52,6 @@ export const submitAdminLogin = function (data) {
         adminLogin(data).then(
             function (response) {
 
-                console.log(response);
-
                 // if an error occurred (but status 200 is given), show it as a notice
                 if (response.status == 'error') {
                     dispatch(setAdminFormXHR({
@@ -72,6 +70,7 @@ export const submitAdminLogin = function (data) {
                 }));
                 localStorage.setItem('token', response.payload.token);
                 localStorage.setItem('user', JSON.stringify(response.payload.user));
+                localStorage.setItem('roles', JSON.stringify(response.payload.roles));
                 appHistory.push('/admin');
             },
             function (request) {
@@ -106,12 +105,9 @@ export const submitAdminRegister = function (data) {
                     isFetching: false,
                     error: null
                 }));
-                localStorage.setItem('token', response.token);
-                localStorage.setItem('user', JSON.stringify({
-                    first_name: response.first_name,
-                    last_name: response.last_name,
-                    email: response.email
-                }));
+                localStorage.setItem('token', response.payload.token);
+                localStorage.setItem('user', JSON.stringify(response.payload.user));
+                localStorage.setItem('user', JSON.stringify(response.payload.roles));
                 appHistory.push('/admin');
             },
             function (response) {

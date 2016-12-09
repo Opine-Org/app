@@ -43,4 +43,11 @@ const Login = (props) => {
     )
 };
 
+Login.propTypes = {
+    submitAdminLogin: React.PropTypes.func.isRequired,
+    error: React.PropTypes.object,
+    notice: React.PropTypes.object,
+    isFetching: React.PropTypes.bool
+};
+
 export default Login;
