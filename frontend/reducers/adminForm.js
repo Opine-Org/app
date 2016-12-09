@@ -5,7 +5,7 @@ import { objectRemoveKey } from './../libraries/Util.js';
 const adminForm = (state = {
     isFetching: false,
     error: null,
-    warning: null
+    notice: null
 }, action) => {
 
     switch (action.type) {
@@ -13,17 +13,17 @@ const adminForm = (state = {
             return Object.assign({}, state, {
                 isFetching: action.isFetching || false,
                 error: action.error || null,
-                warning: action.warning || null
+                notice: action.notice || null
             });
 
         case CLEAR_ADMIN_FIELD_ERROR:
-            if (state.warning === null || !state.warning.fields[action.field]) {
+            if (state.notice == null || !state.notice.fields || !state.notice.fields[action.field]) {
                 return state;
             }
             return Object.assign({}, state, {
-                warning: {
-                    fields: objectRemoveKey(state.warning.fields, action.field),
-                    message: state.warning.message
+                notice: {
+                    fields: objectRemoveKey(state.notice.fields, action.field),
+                    messages: state.notice.messages
                 }
             });
 

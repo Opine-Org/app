@@ -10,7 +10,7 @@ route:
         /admin/login:                   admin@loginPage
         /admin/register:                admin@registerPage
         /admin/logout:                  admin@logout
-        /admin/products:                ecommerce@adminProducts, {activity: ADMIN_PRODUCTS}]
+        /admin/products:                [ecommerce@adminProducts, {activity: ADMIN_PRODUCTS}]
         /admin/product/{id}:            ecommerce@adminProduct
     POST:
         /api/admin/login:               admin@login

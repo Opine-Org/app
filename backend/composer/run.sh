@@ -9,7 +9,7 @@ then
     MODE=$1
 fi
 
-if [ $MODE -eq "install" ]
+if [ $MODE = "install" ]
 then
     rm -rf $DIR/../vendor
     rm -f $DIR/../composer.lock

@@ -28,9 +28,7 @@ function handleRender(req, res) {
     const preloadedState = req.body;
 
     // create a new redux store instance
-    const store = configureStore(preloadedState)
-
-    console.log(req.headers['x-location']);
+    const store = configureStore(preloadedState);
 
     // render the component to a string
     const html = renderToString(

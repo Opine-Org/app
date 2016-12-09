@@ -8,7 +8,7 @@ export const setAdminFormXHR = (data) => ({
     type: SET_ADMIN_FORM_XHR,
     isFetching: data.isFetching,
     error: data.error || null,
-    warning: data.warning || null
+    notice: data.notice || null
 });
 
 export const clearAdminFieldError = (data) => ({
@@ -30,13 +30,13 @@ export const submitAdminLogin = function (data) {
             }
         };
 
-        // if validation fails, send warnings
-        const warnings = validate(data, constraints);
-        if (warnings) {
+        // if validation fails, send notices
+        const notices = validate(data, constraints);
+        if (notices) {
             dispatch(setAdminFormXHR({
-                warning: {
-                    fields: warnings,
-                    message: validate(data, constraints, {format: "flat"})
+                notice: {
+                    fields: notices,
+                    messages: validate(data, constraints, {format: "flat"})
                 }
             }));
             return;
@@ -51,12 +51,15 @@ export const submitAdminLogin = function (data) {
         // call the login api end point
         adminLogin(data).then(
             function (response) {
-                // if an error occurred (but status 200 is given), show it as a warning
+
+                console.log(response);
+
+                // if an error occurred (but status 200 is given), show it as a notice
                 if (response.status == 'error') {
                     dispatch(setAdminFormXHR({
                         isFetching: false,
                         error: null,
-                        warning: { message: [response.error] }
+                        notice: { messages: response.notice.messages }
                     }));
                     return;
                 }
@@ -65,14 +68,10 @@ export const submitAdminLogin = function (data) {
                 dispatch(setAdminFormXHR({
                     isFetching: false,
                     error: null,
-                    warning: null
+                    notice: null
                 }));
-                localStorage.setItem('token', response.token);
-                localStorage.setItem('user', JSON.stringify({
-                    first_name: response.first_name,
-                    last_name: response.last_name,
-                    email: response.email
-                }));
+                localStorage.setItem('token', response.payload.token);
+                localStorage.setItem('user', JSON.stringify(response.payload.user));
                 appHistory.push('/admin');
             },
             function (request) {

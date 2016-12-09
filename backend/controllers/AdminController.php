@@ -1,4 +1,5 @@
 <?php
+use Valitron\Validator;
 
 class AdminController {
     private $userService;
@@ -16,10 +17,6 @@ class AdminController {
 
     public function loginPage ()
     {
-        // $token = $this->userService->encodeJWT(123, 'test@test.com', ['ROLE1']);
-        // $tokenData = $this->userService->decodeJWT($token);
-        // var_dump($tokenData);
-        // exit();
         return '{}';
     }
 
@@ -35,10 +32,38 @@ class AdminController {
 
     public function login (array $input) : string
     {
-        http_response_code(400);
+        $v = new Validator($input);
+        $v->rule('required', 'email')->message('{field} is required')->label('Email');
+        $v->rule('email', 'email')->message('{field} is must be in a valid format')->label('Email');
+        $v->rule('required', 'password')->message('{field} is required')->label('Password');
+        if (!$v->validate()) {
+            http_response_code(400);
+            return json_encode([
+                'status' => 'error',
+                'errors' => $v->errors()
+            ]);
+        }
+
+        $user = $this->userService->login($input['email'], $input['password']);
+        if (empty($user)) {
+            return json_encode([
+                'status' => 'error',
+                'notice' => [
+                    'messages' => [
+                        'login failed'
+                    ]
+                ]
+            ]);
+        }
+
+        $token = $this->userService->encodeJWT($user['id'], $user['email'], []);
+
         return json_encode([
-            'status' => 'error',
-            'error' => 'You Suck'
+            'status' => 'ok',
+            'payload' => [
+                'user' => $user,
+                'token' => $token
+            ]
         ]);
     }
 

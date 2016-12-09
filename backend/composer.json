@@ -2,7 +2,8 @@
     "name": "project",
     "minimum-stability": "dev",
     "require": {
-        "opine/api": "1.0.13"
+        "opine/api": "1.0.13",
+        "vlucas/valitron": "v1.3.0"
     },
     "autoload": {
         "classmap": [
