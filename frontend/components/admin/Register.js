@@ -1,77 +1,61 @@
 import React from 'react';
+import { Button, Form, Segment, Grid, Header, Message } from 'semantic-ui-react';
 
-const Register = React.createClass({
-    handleFormSubmit: function (e) {
+const Register = (props) => {
+
+    const handleSubmit = (e, component) => {
         e.preventDefault();
+        props.submitAdminRegister(component.formData);
+    };
 
-        // read data
-        const data = {
-            first_name: this.refs.first_name.value,
-            last_name: this.refs.last_name.value,
-            email: this.refs.email.value,
-            password: this.refs.password.value
-        };
-
-        // call the action
-        this.props.submitAdminRegister(data);
-    },
-
-    render: function () {
-
-        var formClass = 'ui form';
-        if (this.props.isFetching) {
-            formClass += ' loading';
-        }
-
-        var errorNode;
-        if (this.props.error != null) {
-            errorNode = (
-                <div className="ui warning message">
-                    <div className="header">{this.props.error}</div>
-                </div>
-            );
-        }
-
-        return (
-
-            <div className="ui sizer vertical segment">
-
-                <div className="ui two column centered grid">
-                    <div className="column">
-
-                        <div className="ui huge header">Register</div>
-
-                        {errorNode}
-
-                        <form className={formClass} onSubmit={this.handleFormSubmit}>
-                            <div className="field">
-                                <label>First Name</label>
-                                <input type="text" ref="first_name" placeholder="First Name" />
-                            </div>
-                            <div className="field">
-                                <label>Last Name</label>
-                                <input type="text" ref="last_name" placeholder="Last Name" />
-                            </div>
-                            <div className="field">
-                                <label>Email</label>
-                                <input type="text" ref="email" placeholder="Email" />
-                            </div>
-                            <div className="field">
-                                <label>Password</label>
-                                <input type="password" ref="password" placeholder="Password" />
-                            </div>
-                            <div className="field">
-                                <label>Password (again)</label>
-                                <input type="password" ref="password2" placeholder="Confirm Password" />
-                            </div>
-                            <button className="ui blue button" type="submit">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-});
+    return (
+        <Segment vertical>
+            <Grid centered columns={2}>
+                <Grid.Column>
+                    <Header size="huge">Register</Header>
+                    <Form
+                        onSubmit={handleSubmit}
+                        error={Boolean(props.error)}
+                        warning={Boolean(props.notice)}
+                        loading={props.isFetching}
+                    >
+                        <Message
+                            error
+                            header="An Error Occurred"
+                            content={props.error != null && props.error.message || null}
+                        />
+                        <Message
+                            warning
+                            header="Please Correct These Issues"
+                            list={props.notice != null && props.notice.messages || []}
+                        />
+                        <Form.Field error={(props.notice != null && props.notice.fields && props.notice.fields.first_name != null)}>
+                            <label>First Name</label>
+                            <input name="first_name" placeholder="first name" onChange={(e) => { props.clearAdminFieldError('first_name'); }} />
+                        </Form.Field>
+                        <Form.Field error={(props.notice != null && props.notice.fields && props.notice.fields.last_name != null)}>
+                            <label>Last Name</label>
+                            <input name="last_name" placeholder="last name" onChange={(e) => { props.clearAdminFieldError('last_name'); }} />
+                        </Form.Field>
+                        <Form.Field error={(props.notice != null && props.notice.fields && props.notice.fields.email != null)}>
+                            <label>Email</label>
+                            <input name="email" placeholder="email" onChange={(e) => { props.clearAdminFieldError('email'); }} />
+                        </Form.Field>
+                        <Form.Field error={(props.notice != null && props.notice.fields && props.notice.fields.password != null)}>
+                            <label>Password</label>
+                            <input type="password" name="password" placeholder="password" onChange={(e) => { props.clearAdminFieldError('password'); }} />
+                        </Form.Field>
+                        <Form.Field error={(props.notice != null && props.notice.fields && props.notice.fields.password2 != null)}>
+                            <label>Password (again)</label>
+                            <input type="password" name="password2" placeholder="re-type password" onChange={(e) => { props.clearAdminFieldError('password2'); }} />
+                        </Form.Field>
+                        <Button color="blue" type="submit" disabled={props.isFetching}>Login</Button>
+                    </Form>
+                </Grid.Column>
+            </Grid>
+        </Segment>
+    );
+};
 
 Register.propTypes = {
     submitAdminLogin: React.PropTypes.func.isRequired,

@@ -2,11 +2,22 @@ imports:
     - ../../vendor/opine/api/config/containers/container.yml
 
 services:
+    pdo:
+        class: PDO
+        arguments:
+            - config.db.dsn
+            - config.db.username
+            - config.db.password
     website:
         class: WebsiteController
+    adminModel:
+        class: AdminModel
+        arguments:
+            - "@pdo"
     admin:
         class: AdminController
         arguments:
             - "@userService"
+            - "@adminModel"
     ecommerce:
         class: EcommerceController

@@ -11,6 +11,8 @@ else
     CONFIG="$1"
 fi
 
+docker stop opinephp-frontend-dev
+docker rm opinephp-frontend-dev
 docker run \
     --rm \
     -t \

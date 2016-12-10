@@ -16,9 +16,8 @@ export const clearAdminFieldError = (data) => ({
     field: data
 });
 
-export const submitAdminLogin = function (data) {
-    return function (dispatch) {
-
+export const submitAdminLogin = (data) => {
+    return (dispatch) => {
         // input validation
         const constraints = {
             email: {
@@ -36,7 +35,7 @@ export const submitAdminLogin = function (data) {
             dispatch(setAdminFormXHR({
                 notice: {
                     fields: notices,
-                    messages: validate(data, constraints, {format: "flat"})
+                    messages: validate(data, constraints, {format: 'flat'})
                 }
             }));
             return;
@@ -50,7 +49,9 @@ export const submitAdminLogin = function (data) {
 
         // call the login api end point
         adminLogin(data).then(
-            function (response) {
+
+            // success case
+            (response) => {
 
                 // if an error occurred (but status 200 is given), show it as a notice
                 if (response.status == 'error') {
@@ -62,18 +63,20 @@ export const submitAdminLogin = function (data) {
                     return;
                 }
 
-                // success
+                // clear everything
                 dispatch(setAdminFormXHR({
                     isFetching: false,
                     error: null,
                     notice: null
                 }));
+
+                // set returned values to local storage
                 localStorage.setItem('token', response.payload.token);
-                localStorage.setItem('user', JSON.stringify(response.payload.user));
-                localStorage.setItem('roles', JSON.stringify(response.payload.roles));
                 appHistory.push('/admin');
             },
-            function (request) {
+
+            // error case
+            (request) => {
                 const response = JSON.parse(request.response);
                 let error = 'An error occurred.'
                 if (response.error) {
@@ -90,30 +93,89 @@ export const submitAdminLogin = function (data) {
     };
 };
 
-export const submitAdminRegister = function (data) {
-    return function (dispatch) {
-
+export const submitAdminRegister = (data) => {
+    return (dispatch) => {
         // input validation
+        const constraints = {
+            email: {
+                presence: true,
+                email: true
+            },
+            first_name: {
+                presence: true
+            },
+            last_name: {
+                presence: true
+            },
+            password: {
+                presence: true,
+                length: {
+                    minimum: 8,
+                    message: 'must be at least 8 characters'
+                }
+            },
+            password2: {
+                equality: 'password'
+            }
+        };
 
+        // if validation fails, send notices
+        const notices = validate(data, constraints);
+        if (notices) {
+            dispatch(setAdminFormXHR({
+                notice: {
+                    fields: notices,
+                    messages: validate(data, constraints, {format: 'flat'})
+                }
+            }));
+            return;
+        }
+
+        // let the UI know that we a are fetching data
         dispatch(setAdminFormXHR({
             isFetching: true,
             error: null
         }));
+
         adminRegister(data).then(
-            function (response) {
+
+            // success case
+            (response) => {
+
+                // if an error occurred (but status 200 is given), show it as a notice
+                if (response.status == 'error') {
+                    dispatch(setAdminFormXHR({
+                        isFetching: false,
+                        error: null,
+                        notice: { messages: response.notice.messages }
+                    }));
+                    return;
+                }
+
+                // clear everything
                 dispatch(setAdminFormXHR({
                     isFetching: false,
-                    error: null
+                    error: null,
+                    notice: null
                 }));
+
+                // set returned values to local storage
                 localStorage.setItem('token', response.payload.token);
-                localStorage.setItem('user', JSON.stringify(response.payload.user));
-                localStorage.setItem('user', JSON.stringify(response.payload.roles));
                 appHistory.push('/admin');
             },
-            function (response) {
+
+            // error case
+            (request) => {
+                const response = JSON.parse(request.response);
+                let error = 'An error occurred.'
+                if (response.error) {
+                    error = response.error;
+                }
                 dispatch(setAdminFormXHR({
                     isFetching: false,
-                    error: 'Error'
+                    error: {
+                        message: error
+                    }
                 }));
             }
         );

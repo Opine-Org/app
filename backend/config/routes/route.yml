@@ -6,10 +6,10 @@ route:
         /cart:                          ecommerce@cartPage
         /checkout:                      ecommerce@checkoutPage
         /receipt:                       ecommerce@receiptPage
+        /logout:                        admin@logout
         /admin:                         admin@homePage
         /admin/login:                   admin@loginPage
         /admin/register:                admin@registerPage
-        /admin/logout:                  admin@logout
         /admin/products:                [ecommerce@adminProducts, {activity: ADMIN_PRODUCTS}]
         /admin/product/{id}:            ecommerce@adminProduct
     POST:
