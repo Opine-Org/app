@@ -1,8 +1,10 @@
 settings:
     activities:
         ADMIN_PRODUCTS:
-            - SUPERADMIN
             - ADMIN:
                 - controller@qualifier
+        ADMIN_DASHBOARD:
+            - ADMIN
     redirects:
-        ADMIN_PRODUCTS: /admin
+        ADMIN_PRODUCTS: /admin/login
+        ADMIN_DASHBOARD: /admin/login

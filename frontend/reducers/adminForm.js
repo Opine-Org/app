@@ -2,11 +2,7 @@ import { SET_ADMIN_FORM_XHR, CLEAR_ADMIN_FIELD_ERROR } from './../actions/admin.
 
 import { objectRemoveKey } from './../libraries/Util.js';
 
-const adminForm = (state = {
-    isFetching: false,
-    error: null,
-    notice: null
-}, action) => {
+const adminForm = (state = { isFetching: false, error: null, notice: null}, action) => {
 
     switch (action.type) {
         case SET_ADMIN_FORM_XHR:
@@ -30,6 +26,13 @@ const adminForm = (state = {
         default:
             return state;
     }
+};
+
+const adminDashboard = (state = {session: [], qualifications: [], widgets: []}, action) => {
+
+    console.log('CALLED adminDashboard');
+
+    return state;
 };
 
 export default adminForm;

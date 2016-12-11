@@ -22,7 +22,7 @@ const Routes = {
     '/checkout':            B,
     '/receipt':             A,
     '/logout':              Logout,
-    '/admin':               Dashboard,
+    '/admin':               [Dashboard, 'adminDashboard'],
     '/admin/login':         [AdminLogin, 'adminForm'],
     '/admin/register':      [AdminRegister, 'adminForm'],
     '/admin/products':      A,

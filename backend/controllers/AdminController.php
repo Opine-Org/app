@@ -14,11 +14,18 @@ class AdminController {
     public function homePage ()
     {
         $session = $this->userService->getTokenSession();
-        error_log(print_r($session, true));
+        $userId = $session['user']['id'];
+        $userRolesIds = array_keys($session['roles']);
 
-        //$this->adminModel->getUserWidgets(1, [1])
+        $widgets = $this->adminModel->getUserWidgets($userId, $userRolesIds);
 
-        return '{}';
+        error_log(print_r($widgets, true));
+
+        return json_encode(['adminDashboard' => [
+            'session' => $session,
+            'qualifications' => $this->userService->getQualifications(),
+            'widgets' => $widgets
+        ]]);
     }
 
     public function loginPage ()
@@ -68,15 +75,17 @@ class AdminController {
         $userRoles = $this->userService->getUserRoles($user['id']);
 
         // create a new token
-        $token = $this->userService->encodeJWT($user['id'], $user['email'], $userRoles);
+        $session = [
+            'user' => $user,
+            'roles' => $userRoles
+        ];
+        $token = $this->userService->encodeJWT($session);
 
         // api response
         return json_encode([
             'status' => 'ok',
             'payload' => [
-                'user' => $user,
-                'token' => $token,
-                'roles' => $userRoles
+                'token' => $token
             ]
         ]);
     }
@@ -116,20 +125,22 @@ class AdminController {
         $userRoles = $this->userService->getUserRoles($userId);
 
         // create a new token
-        $token = $this->userService->encodeJWT($userId, strtolower(trim($input['email'])), $userRoles);
+        $session = [
+            'user' => [
+                'id' => $userId,
+                'email' => strtolower(trim($input['email'])),
+                'first_name' => $input['first_name'],
+                'last_name' => $input['last_name']
+            ],
+            'roles' => $userRoles
+        ];
+        $token = $this->userService->encodeJWT($session);
 
         // api response
         return json_encode([
             'status' => 'ok',
             'payload' => [
-                'user' => [
-                    'id' => $userId,
-                    'email' => $input['email'],
-                    'first_name' => $input['first_name'],
-                    'last_name' => $input['last_name']
-                ],
-                'token' => $token,
-                'roles' => $userRoles
+                'token' => $token
             ]
         ]);
     }

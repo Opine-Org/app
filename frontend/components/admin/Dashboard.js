@@ -4,6 +4,8 @@ import { Menu, Container, Icon, Header } from 'semantic-ui-react';
 //ui fixed inverted menu
 const Dashboard = (props) => {
 
+    console.log(props);
+
     const handleLogout = (e) => {
         e.preventDefault();
         appHistory.push('/logout');

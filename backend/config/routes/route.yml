@@ -7,11 +7,11 @@ route:
         /checkout:                      ecommerce@checkoutPage
         /receipt:                       ecommerce@receiptPage
         /logout:                        admin@logout
-        /admin:                         admin@homePage
         /admin/login:                   admin@loginPage
         /admin/register:                admin@registerPage
+        /admin:                         [admin@homePage, {activity: ADMIN_DASHBOARD}]
         /admin/products:                [ecommerce@adminProducts, {activity: ADMIN_PRODUCTS}]
-        /admin/product/{id}:            ecommerce@adminProduct
+        /admin/product/{id}:            [ecommerce@adminProduct, {activity: ADMIN_PRODUCTS}]
     POST:
         /api/admin/login:               admin@login
         /api/admin/register:            admin@register
