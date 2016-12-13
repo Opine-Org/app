@@ -23,7 +23,8 @@ class AdminModel {
             *
         FROM
             widgets
-        WHERE ' . implode(' OR ', $roleClauses);
+        WHERE ' . implode(' OR ', $roleClauses) . '
+        ORDER BY type, name';
 
         // prepare statement
         $result = $this->db->prepare($sql);
@@ -32,6 +33,17 @@ class AdminModel {
         if (empty($records)) {
             return [];
         }
-        return $records;
+
+        // group output by type
+        $output = [];
+
+        foreach ($records as $record) {
+            if (!isset($output[$record['type']])) {
+                $output[$record['type']] = [];
+            }
+            $output[$record['type']][] = $record;
+        }
+
+        return $output;
     }
 }

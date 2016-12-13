@@ -29,9 +29,6 @@ const adminForm = (state = { isFetching: false, error: null, notice: null}, acti
 };
 
 const adminDashboard = (state = {session: [], qualifications: [], widgets: []}, action) => {
-
-    console.log('CALLED adminDashboard');
-
     return state;
 };
 

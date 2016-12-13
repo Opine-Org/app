@@ -1,11 +1,7 @@
 import React from 'react';
 
-const Unknown = React.createClass({
-    render: function () {
-        return (
-            <div>Unknown</div>
-        );
-    }
-});
+const Unknown = (props) => (
+    <div>Page not found.</div>
+);
 
 export default Unknown;

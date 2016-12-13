@@ -1,0 +1,10 @@
+route:
+    GET:
+        /:                              website@homePage
+        /logout:                        admin@logout
+        /admin/login:                   admin@loginPage
+        /admin/register:                admin@registerPage
+        /admin:                         [admin@homePage, {activity: ADMIN_DASHBOARD}]
+    POST:
+        /api/admin/login:               admin@login
+        /api/admin/register:            admin@register

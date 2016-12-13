@@ -19,8 +19,6 @@ class AdminController {
 
         $widgets = $this->adminModel->getUserWidgets($userId, $userRolesIds);
 
-        error_log(print_r($widgets, true));
-
         return json_encode(['adminDashboard' => [
             'session' => $session,
             'qualifications' => $this->userService->getQualifications(),
