@@ -41,7 +41,7 @@ function handleRender(req, res) {
     const finalState = store.getState();
 
     // Send the rendered page back to the client
-    res.send(renderFullPage(html, finalState, req.headers['x-location']));
+    res.send(renderFullPage(html, finalState, req.headers['x-location'], req.headers['x-session']));
 }
 
 // parse application/json
@@ -59,7 +59,7 @@ if (opineEnv != 'local') {
     cssFile = '/static/bundle-prod-' + staticId.trim() + '.css';
 }
 
-function renderFullPage(html, preloadedState, location) {
+function renderFullPage(html, preloadedState, location, sessionId) {
   return `
     <!doctype html>
     <html>
@@ -74,6 +74,7 @@ function renderFullPage(html, preloadedState, location) {
             <script>
                 window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\x3c')}
                 window.xLocation = '${location}';
+                window.xSession = '${sessionId}';
             </script>
             <script src="${jsFile}"></script>
         </body>
@@ -85,6 +86,6 @@ app.listen(port, (error) => {
     if (error) {
         console.error(error)
     } else {
-       console.info(`==> 🌎  Listening on port ${port}. Open up http://localhost:${port}/ in your browser.`)
+        console.info(`==> 🌎  Listening on port ${port}. Open up http://localhost:${port}/ in your browser.`)
     }
 });

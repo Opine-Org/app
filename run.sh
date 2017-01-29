@@ -16,7 +16,7 @@ then
     mkdir -p /app/persistent
     PERSISTENT_DIR="/app/persistent"
 else
-    mkdir -p /app/persistent/log
+    mkdir -p "$PERSISTENT_DIR"/log
 fi
 
 docker run \

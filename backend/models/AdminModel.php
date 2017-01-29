@@ -6,6 +6,7 @@ class AdminModel {
     public function __construct (PDO $db)
     {
         $this->db = $db;
+        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     public function getUserWidgets (int $userId, array $roleIds) : array
@@ -22,7 +23,7 @@ class AdminModel {
         $sql = 'SELECT
             *
         FROM
-            widgets
+            admin_widgets
         WHERE ' . implode(' OR ', $roleClauses) . '
         ORDER BY type, name';
 
