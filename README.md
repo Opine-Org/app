@@ -42,7 +42,7 @@ sudo ./orchestrate.sh start
 ```
 
 ### Accessing Database
-This section is protected by an http password. Run "orchestrate.sh htpasswd <PASS>" to set the password.
+This section is protected by an http password. Run "orchestrate.sh htpasswd {SOMEPASSWORD}" to set the password.
 
 https://localhost/adminer.php
 
