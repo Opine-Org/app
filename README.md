@@ -55,7 +55,7 @@ When you are prompted to login, the username is "admin" and the password is the 
 
 From the Adminer main page, choose "PostgreSQL" as the system and use "postgres" as your username and password.
 
-https://localhost/adminer.php
+[https://localhost/adminer.php](https://localhost/adminer.php)
 
 ### Accessing Logs
 https://localhost/log/nginx.log
