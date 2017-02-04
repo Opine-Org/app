@@ -5,46 +5,36 @@ Universal React PHP App
 The installation process assumes you are running Ubuntu Linux.
 
 ```sh
-mkdir myapp
-cd myapp
-git clone git@github.com:Opine-Org/app.git
-git clone git@github.com:Opine-Org/microserver.git
-git clone git@github.com:Opine-Org/deployer.git
+mkdir MyProject
+cd MyProject
+git --git-dir=/dev/null clone --depth=1 git@github.com:ryan-mahoney/universal-react-php-app.git app
+git --git-dir=/dev/null clone --depth=1 git@github.com:ryan-mahoney/orchestrate.git
 ```
 
 ### Initial Configuration
 ```sh
-cd myapp/orchestrate
-sudo ./deploy.sh init-local
-sudo ./deploy.sh id-make
-sudo ./deploy.sh htpasswd <PASSWD>
+cd MyProject/orchestrate
+sudo ./orchestrate.sh init-local
 ```
 
 ### Compose and Build Backend
 ```sh
-sudo myapp/app/backend/composer/run.sh build
-sudo myapp/app/backend/builder/run.sh
+cd MyProject/orchestrate
+sudo ./orchestrate.sh compose-backend
+sudo ./orchestrate.sh build-backend
 ```
 
 ### Compose and Build Frontend
 ```sh
-sudo ~/Projects/opine/app/frontend/builder/run.sh
+cd MyProject/orchestrate
+sudo ./orchestrate.sh build-frontend
 ```
 
 ### Running
 ```sh
-cd myapp
-sudo ./run.sh
-sudo docker logs opinephp-server
-```
-
-### Deploying
-```sh
-cd myapp/orchestrate
-sudo ./orchestrate.sh id-public
-sudo ./orchestrate.sh set-remote-addr <IP>
-sudo ./orchestrate.sh init-remote
-sudo ./orchestrate.sh deploy
+cd MyProject/orchestrate
+sudo ./orchestrate.sh permissions
+sudo ./orchestrate.sh start
 ```
 
 ### Accessing Database
