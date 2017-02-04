@@ -58,10 +58,22 @@ From the Adminer main page, choose "PostgreSQL" as the system and use "postgres"
 [https://localhost/adminer.php](https://localhost/adminer.php)
 
 ### Accessing Logs
-https://localhost/log/nginx.log
+[https://localhost/log/fpm.err.log](https://localhost/log/fpm.err.log)
 
-https://localhost/log/fpm.log
+[https://localhost/log/fpm.out.log](https://localhost/log/fpm.out.log)
 
-https://localhost/log/nodejs.log
+[https://localhost/log/nginx.err.log](https://localhost/log/nginx.err.log)
 
-https://localhost/log/pgsql.log
+[https://localhost/log/nginx.out.log](https://localhost/log/nginx.out.log)
+
+[https://localhost/log/node.err.log](https://localhost/log/node.err.log)
+
+[https://localhost/log/node.out.log](https://localhost/log/node.out.log)
+
+[https://localhost/log/pgsql.err.log](https://localhost/log/pgsql.err.log)
+
+[https://localhost/log/pgsql.out.log](https://localhost/log/pgsql.out.log)
+
+[https://localhost/log/supervisor.err.log](https://localhost/log/supervisor.err.log)
+
+[https://localhost/log/supervisor.out.log](https://localhost/log/supervisor.out.log)
