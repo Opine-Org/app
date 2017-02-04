@@ -35,6 +35,7 @@ sudo ./orchestrate.sh build-frontend
 
 ### Running
 This will start the docker container for the application server.  The permissions command ensures that your local user and the www-data user can access the same files and that files have the permissions expected by the application server. Because this command adds a group to your current logged in user, you will have to relogin to Ubuntu after running "permissions" for the first time.
+
 ```sh
 cd MyProject/orchestrate
 sudo ./orchestrate.sh permissions
@@ -42,7 +43,7 @@ sudo ./orchestrate.sh start
 ```
 
 ### Accessing Database
-This section is protected by an http password. Run "orchestrate.sh htpasswd {SOMEPASSWORD}" to set the password.
+This section is protected by an http password. Run "orchestrate.sh htpasswd {SOMEPASSWORD}" to set the password. The username will always be "admin".
 
 https://localhost/adminer.php
 
