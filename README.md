@@ -43,7 +43,17 @@ sudo ./orchestrate.sh start
 ```
 
 ### Accessing Database
-This section is protected by an http password. Run "orchestrate.sh htpasswd {SOMEPASSWORD}" to set the password. The username will always be "admin".
+This section is protected by an http password.
+
+To set the password:
+``sh
+cd MyProject/orchestrate
+sudo ./orchestrate.sh htpasswd SOMEPASSWORD
+``
+
+When you are prompted to login, the username is "admin" and the password is the one set previously.
+
+From the Adminer main page, choose "PostgreSQL" as the system and use "postgres" as your username and password.
 
 https://localhost/adminer.php
 
